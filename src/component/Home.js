@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { remove } from './../Redux/Action'
 
@@ -30,10 +30,9 @@ class Home extends Component {
         this.setState({ page: e })
     }
     //   ***********************************
-    handleDelete = (e) => {
-        console.log(e.target.id);
-
-        this.props.remove(e.target.id)
+    handleDelete = (id) => {
+        console.log(id);
+        this.props.remove(id)
     }
     handleOpening = (e) => {
         let x = this.state.final_data.reduce((e, ab) => e + Number(ab.openings), 0)
@@ -42,6 +41,7 @@ class Home extends Component {
     }
     // ********************************************************
     render() {
+ 
         //console.log(this.state.total);
 
         //console.log(this.props.add.stored_data);
@@ -53,7 +53,8 @@ class Home extends Component {
         let start = (pageNo - 1) * per_page_no
         let end = start + per_page_no
         let pagination_data = data.slice(start, end)
-
+        //console.log(pagination_data);
+        
         var button_number = []
         for (var i = 1; i <= total_page; i++) {
             button_number.push(i)
@@ -73,12 +74,19 @@ class Home extends Component {
                     <td>{e.openings}</td>
                     <td>{e.salary}</td>
                     <td><Link to={`/edit/${e.company_id}`}>edit</Link></td>
-                    <td><button onClick={this.handleDelete} id={e.company_id}>Delete</button></td>
+                    <td><button onClick={() => this.handleDelete(e.company_id) }>Delete</button></td>
                 </tr>
             )
         })
+         //Redirect
+         let {isAuth} = this.props
+         isAuth = isAuth || true                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+         console.log(isAuth)
 
-        return (
+        return !isAuth?
+        (<Redirect to = '/Login'/>):
+        
+        (
             <React.Fragment>
                 <div class="card text-center mt-5">
                     <div class="card-header">
@@ -115,8 +123,8 @@ class Home extends Component {
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <p>{this.state.total}</p>
-                        <Link className="btn btn-success" onClick={this.handleOpening}>Total Job openig</Link>
+                       
+                        <Link className="btn btn-success" onClick={this.handleOpening}>Total Job openig { this.state.total}</Link>
                     </div>
                 </div>
             </React.Fragment>
