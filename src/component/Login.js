@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import { loginUser } from '../Redux/Action';
+import { Link ,Redirect} from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
@@ -13,11 +16,24 @@ class Login extends Component {
     }
     input_submit = (e) => {
         e.preventDefault()
-        console.log((this.state));
+        // console.log(this.state);
+        let payload = {
+            username:this.state.username,
+            password:this.state.password
+        }
+        this.props.login(payload)
         
     }
     render() {
-        return (
+        console.log(this.props.isAuth);
+        const {isAuth} = this.props
+        
+        return isAuth?
+        (
+            <Redirect to='/test' />
+        ):
+        
+        ( 
             <React.Fragment>
                 <div class="card mt-5">
                     <div class="card-header">
@@ -44,4 +60,11 @@ class Login extends Component {
         )
     }
 }
-export default Login 
+
+const mapStateToProps = state => ({
+    isAuth:state.auth.isAuth
+})
+const mapDispatchToProps = dispatch => ({
+    login:payload => dispatch(loginUser(payload))
+})
+export default connect (mapStateToProps, mapDispatchToProps) (Login)

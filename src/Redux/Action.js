@@ -2,6 +2,10 @@ const ADD_COMMENTS = 'ADD_COMMENTS';
 const EDIT = 'EDIT';
 const DELETE = 'DELETE';
 // const TABLE_DATA ="TABLE_DATA"
+const LOG_IN = "LOG_IN";
+const LOG_OUT = "LOG_OUT";
+
+
 
 const company_data = (action_data) => {
     console.log(action_data)
@@ -29,5 +33,25 @@ const remove = (e) => {
 //         table:e
 //      }
 //  }
+// const loginUser = (payload) => ({
+//     console.log(payload);
+    
+//     type: LOG_IN,
+//     payload,
+// })
+
+const loginUser = (payload) => {
+    console.log(payload);
+    
+    return {
+        type: LOG_IN,
+            payload
+    }
+}
+
+    
+    
+
+
  
-export {company_data, edit, remove}
+export {company_data, edit, remove, loginUser}

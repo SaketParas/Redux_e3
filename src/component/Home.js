@@ -78,15 +78,9 @@ class Home extends Component {
                 </tr>
             )
         })
-         //Redirect
-         let {isAuth} = this.props
-         isAuth = isAuth || true                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-         console.log(isAuth)
-
-        return !isAuth?
-        (<Redirect to = '/Login'/>):
         
-        (
+
+        return(
             <React.Fragment>
                 <div class="card text-center mt-5">
                     <div class="card-header">
